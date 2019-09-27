@@ -5,6 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 
+[scripts]
+graphql = "python graphql-examples/field_examples.py"
+field-explorer = "python field-explorer-examples/field_explorer.py"
+field-boundaries = "python field-explorer-examples/field_boundaries.py"
+field-search = "python field-explorer-examples/field_search.py"
+
 [packages]
 matplotlib = "*"
 pandas = "*"
