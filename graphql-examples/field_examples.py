@@ -3,7 +3,7 @@
 from datetime import datetime
 import json
 
-from graphql_utils import get_paged_data, get_data
+from graphql_utils import get_paged_field_data, get_paged_rainfall_data, get_data
 
 POINT_LOCATION = {"type": "Point", "coordinates": [-0.138702, 51.963196]}
 
@@ -159,18 +159,74 @@ def query_ids_for_large_area():
     }
 
     fields = []
-    for result in get_paged_data(query):
-        fields.extend(result["data"]["fields"])
+    for result in get_paged_field_data(query):
+        fields.extend(result)
 
     return {"data": {"fields": fields}}
 
 
+def query_historic_rainfall_for_fields():
+    """
+    Get the historic rainfall for all fields that lie within a 1000m radius of the default point location.
+
+    Note that this example uses a cursor to page through all the rainfall data results.
+    """
+    query = {
+        "query": """query SampleFields($location: LocationFilter!) {
+            fields(filter: {location: $location distance: 1000}) {
+                id
+            }
+        }""",
+        "variables": {"location": POINT_LOCATION},
+        "OperationName": "SampleFields",
+    }
+
+    fields = get_data(query)
+
+    for field in fields["data"]["fields"]:
+        field["weatherObservations"] = {
+            "rainfallTotalDaily": get_rainfall_for_field(field["id"], start_date="2019-05-01")
+        }
+
+    return fields
+
+
+def get_rainfall_for_field(id, start_date):
+    query = {
+        "query": """query FieldRainfall($id: ID!, $startDate: Date!, $cursor: String) {
+            node(id: $id) {
+                ... on Field {
+                    weatherObservations(dateRange: {startDate: $startDate}, after: $cursor) {
+                        cursor
+                        rainfallTotalDaily {
+                            value
+                            dateTime
+                        }
+                    }
+                }
+            }
+        }""",
+        "OperationName": "FieldRainfall",
+        "variables": {
+            "id": id,
+            "startDate": start_date
+        }
+    }
+
+    rainfall_data = []
+    for result in get_paged_rainfall_data(query):
+        rainfall_data.extend(result)
+
+    return rainfall_data
+
+
 def main():
-    pretty_print(get_field_by_id())
-    pretty_print(query_soil_by_polygon())
-    pretty_print(query_soil_by_point())
-    pretty_print(query_daily_rainfall_for_field_for_current_month())
-    pretty_print(query_ids_for_large_area())
+    # pretty_print(get_field_by_id())
+    # pretty_print(query_soil_by_polygon())
+    # pretty_print(query_soil_by_point())
+    # pretty_print(query_daily_rainfall_for_field_for_current_month())
+    # pretty_print(query_ids_for_large_area())
+    pretty_print(query_historic_rainfall_for_fields())
 
 
 if __name__ == "__main__":
