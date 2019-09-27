@@ -16,6 +16,12 @@ To setup your python environment, install the dependencies via:
 > pip install -r requirements.txt
 ```
 
+Alternatively, you can use `pipenv`
+
+```bash
+> pipenv install
+```
+
 ## API Examples
 
 > For each API call made by these examples, a URL is printed which is suitable for pasting into another tool (e.g. a browser) to fetch the same results. Note that these URLs will contain your API key, and so should not be shared publically.
@@ -58,6 +64,18 @@ This example does the following:
 python field-explorer-examples/field_boundaries.py
 ```
 
+### GraphQL API Example
+This example does the following:
+* Get the soil information for the area specified by a custom polygon.
+* Get the soil information for the area within 3500m of the default point location.
+* Get the area, altitude and soil information for a specific field.
+* For a given field id, get all the total daily rainfall since the start of the month.
+* Get the ids of all fields that lie within a 10000m radius of the default point location.
+
+```
+python graphql-examples/field_examples.py
+```
+
 # Further Reading
 
 * [Agrimetrics Developer Portal](https://developer.agrimetrics.co.uk/docs/services/) - full API documentation
@@ -65,3 +83,5 @@ python field-explorer-examples/field_boundaries.py
 * [JSON-LD](https://json-ld.org/) - JSON-LD specification
 * [Pandas](https://pandas.pydata.org/) - Python Data Analysis Library used by these examples
 * [matplotlib](https://matplotlib.org/gallery/index.html) - Python 2D plotting library used by these examples
+* [GraphQL](https://graphql.org/) - GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
+* [pipenv](https://docs.pipenv.org) - Pipenv is a dependency manager for Python projects. If you’re familiar with Node.js’ npm or Ruby’s bundler, it is similar in spirit to those tools.
