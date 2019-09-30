@@ -20,39 +20,19 @@ def get_data(query):
     return response.json()
 
 
-def get_paged_field_data(query):
+def get_paged_data(query, data_extractor, cursor_extractor):
     while True:
         last_response = get_data(query)
-        
-        field_data = last_response["data"]["fields"]
-        yield field_data
-        
-        if not field_data:
+
+        data = data_extractor(last_response)
+        yield data
+
+        if not data:
             break
 
-        last_cursor = field_data[-1]["cursor"]
+        last_cursor = cursor_extractor(last_response)
 
         if last_cursor is None:
             break
 
         query["variables"]["cursor"] = last_cursor
-
-
-def get_paged_rainfall_data(query):
-    while True:
-        last_response = get_data(query)
-        
-        weather_observations = last_response["data"]["node"]["weatherObservations"]
-        yield weather_observations["rainfallTotalDaily"]
-
-        if not weather_observations:
-            break
-
-        last_cursor = weather_observations["cursor"]
-
-        if last_cursor is None:
-            break
-
-        query["variables"]["cursor"] = last_cursor
-
-

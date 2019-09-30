@@ -3,7 +3,9 @@
 from datetime import datetime
 import json
 
-from graphql_utils import get_paged_field_data, get_paged_rainfall_data, get_data
+import pandas
+
+from graphql_utils import get_paged_data, get_data
 
 POINT_LOCATION = {"type": "Point", "coordinates": [-0.138702, 51.963196]}
 
@@ -141,6 +143,18 @@ def query_daily_rainfall_for_field_for_current_month():
     return get_data(query)
 
 
+def extract_fields(response):
+    return response["data"]["fields"]
+
+
+def extract_fields_cursor(response):
+    return response["data"]["fields"][-1]["cursor"]
+
+
+def get_paged_field_data(query):
+    return get_paged_data(query, data_extractor=extract_fields, cursor_extractor=extract_fields_cursor)
+
+
 def query_ids_for_large_area():
     """
     Get the ids of all fields that lie within a 10000m radius of the default point location.
@@ -191,6 +205,20 @@ def query_historic_rainfall_for_fields():
     return fields
 
 
+def extract_rainfall_total_daily(response):
+    return response["data"]["node"]["weatherObservations"]["rainfallTotalDaily"]
+
+
+def extract_weather_observations_cursor(response):
+    return response["data"]["node"]["weatherObservations"]["cursor"]
+
+
+def get_paged_rainfall_data(query):
+    return get_paged_data(
+        query, data_extractor=extract_rainfall_total_daily, cursor_extractor=extract_weather_observations_cursor
+    )
+
+
 def get_rainfall_for_field(id, start_date):
     query = {
         "query": """query FieldRainfall($id: ID!, $startDate: Date!, $cursor: String) {
@@ -207,10 +235,7 @@ def get_rainfall_for_field(id, start_date):
             }
         }""",
         "OperationName": "FieldRainfall",
-        "variables": {
-            "id": id,
-            "startDate": start_date
-        }
+        "variables": {"id": id, "startDate": start_date},
     }
 
     rainfall_data = []
@@ -221,11 +246,11 @@ def get_rainfall_for_field(id, start_date):
 
 
 def main():
-    # pretty_print(get_field_by_id())
-    # pretty_print(query_soil_by_polygon())
-    # pretty_print(query_soil_by_point())
-    # pretty_print(query_daily_rainfall_for_field_for_current_month())
-    # pretty_print(query_ids_for_large_area())
+    pretty_print(get_field_by_id())
+    pretty_print(query_soil_by_polygon())
+    pretty_print(query_soil_by_point())
+    pretty_print(query_daily_rainfall_for_field_for_current_month())
+    pretty_print(query_ids_for_large_area())
     pretty_print(query_historic_rainfall_for_fields())
 
 
