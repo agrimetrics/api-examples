@@ -1,7 +1,8 @@
 import os
 import requests
 
-APIM_KEY = os.environ.get("APIM_KEY")
+
+API_KEY = os.environ.get("API_KEY") or exit('API_KEY environment variable required')
 BASE_URL = "https://api.agrimetrics.co.uk/graphql"
 
 
@@ -11,7 +12,7 @@ def get_data(query):
         headers={
             "accept": "application/json",
             "content-type": "application/json",
-            "ocp-apim-subscription-key": APIM_KEY,
+            "ocp-apim-subscription-key": API_KEY,
         },
         json=query,
     )
