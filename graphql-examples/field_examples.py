@@ -30,7 +30,9 @@ POLYGON_LOCATION = {
 }
 
 
-def pretty_print(data, indent=2):
+def pretty_print(fun, indent=2):
+    print(f"{fun.__name__}:")
+    data = fun()
     if data:
         print(json.dumps(data, indent=indent))
         try:
@@ -39,7 +41,7 @@ def pretty_print(data, indent=2):
             print(f"No results or invalid request")
     else:
         print("No results")
-
+    print()
 
 def query_soil_by_polygon():
     """
@@ -246,12 +248,12 @@ def get_rainfall_for_field(id, start_date):
 
 
 def main():
-    pretty_print(get_field_by_id())
-    pretty_print(query_soil_by_polygon())
-    pretty_print(query_soil_by_point())
-    pretty_print(query_daily_rainfall_for_field_for_current_month())
-    pretty_print(query_ids_for_large_area())
-    pretty_print(query_historic_rainfall_for_fields())
+    pretty_print(get_field_by_id)
+    pretty_print(query_soil_by_polygon)
+    pretty_print(query_soil_by_point)
+    pretty_print(query_daily_rainfall_for_field_for_current_month)
+    pretty_print(query_ids_for_large_area)
+    pretty_print(query_historic_rainfall_for_fields)
 
 
 if __name__ == "__main__":
