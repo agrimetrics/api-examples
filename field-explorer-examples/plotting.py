@@ -4,7 +4,6 @@ import numpy
 import pandas
 
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 
 
 def plot_stacked_bar_chart(data, x, y, labels, title="Stacked bar chart"):
@@ -26,9 +25,9 @@ def plot_pie_chart(data, labels, title="Pie chart"):
     fig, ax = plt.subplots()
 
     ax.pie(
-        data, 
-        autopct='%1.1f%%', 
-        shadow=True, 
+        data,
+        autopct='%1.1f%%',
+        shadow=True,
         startangle=90
     )
 
@@ -82,7 +81,7 @@ def box_plot_multiple_timeseries_by_freq(data, frequencies, labels=[], title="Bo
     standardise_plot_layout(axs)
 
     fig.suptitle(title)
-    
+
     plt.show()
 
 

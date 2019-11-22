@@ -3,31 +3,43 @@
 from datetime import datetime
 import json
 
-import pandas
-
 from graphql_utils import get_paged_data, get_data
 
-POINT_LOCATION = {"type": "Point", "coordinates": [-0.138702, 51.963196]}
+POINT_LOCATION = {"type": "Point", "coordinates": [-0.363389293, 51.801963734]}
 
 POLYGON_LOCATION = {
     "type": "Polygon",
     "coordinates": [
         [
-            [-0.165482, 51.992382],
-            [-0.175095, 51.981492],
-            [-0.192947, 51.974936],
-            [-0.189171, 51.963196],
-            [-0.195866, 51.950078],
-            [-0.167198, 51.959388],
-            [-0.133553, 51.941824],
-            [-0.096645, 51.954627],
-            [-0.086002, 51.966793],
-            [-0.102654, 51.981704],
-            [-0.126858, 51.992276],
-            [-0.165482, 51.992382],
+            [
+                -0.35791397094726557,
+                51.80370566913594
+            ],
+            [
+                -0.3737926483154297,
+                51.81853742720025
+            ],
+            [
+                -0.38396358489990234,
+                51.8139477982038
+            ],
+            [
+                -0.3879976272583008,
+                51.802246108975304
+            ],
+            [
+                -0.36383628845214844,
+                51.79999033214456
+            ],
+            [
+                -0.35791397094726557,
+                51.80370566913594
+            ]
         ]
     ],
 }
+
+FIELD_ID = 'agfd:C6BgTxUxhMG_OCGrLGW8qw'
 
 
 def pretty_print(fun, indent=2):
@@ -43,6 +55,7 @@ def pretty_print(fun, indent=2):
         print("No results")
     print()
 
+
 def query_soil_by_polygon():
     """
     Get the soil information for the area specified by a custom polygon.
@@ -52,8 +65,14 @@ def query_soil_by_polygon():
             fields(filter: {location: $location}
             ) {
                 id
-                area
-                altitude
+                area {
+                  value
+                  unit
+                }
+                elevation {
+                  value
+                  unit
+                }
                 soil {
                     topSoil {
                         texture {
@@ -97,14 +116,20 @@ def query_soil_by_point():
 
 def get_field_by_id():
     """
-    Get the area, altitude and soil information for a specific field
+    Get the area, elevation and soil information for a specific field
     """
     query = {
         "query": """query MyQuery1($fieldId: ID!) {
             fields(filter: {id: $fieldId}) {
                 id
-                area
-                altitude
+                area {
+                  value
+                  unit
+                }
+                elevation {
+                  value
+                  unit
+                }
                 soil {
                     topSoil {
                         texture {
@@ -114,7 +139,7 @@ def get_field_by_id():
                 }
             }
         }""",
-        "variables": {"fieldId": "agfd:zlrdrtL7m0-1RsAf7TvSww"},
+        "variables": {"fieldId": FIELD_ID},
     }
 
     return get_data(query)
@@ -136,7 +161,7 @@ def query_daily_rainfall_for_field_for_current_month():
             }
         }""",
         "variables": {
-            "fieldId": "agfd:zlrdrtL7m0-1RsAf7TvSww",
+            "fieldId": FIELD_ID,
             "startDate": datetime.now().replace(day=1).strftime("%Y-%m-%d"),
         },
         "OperationName": "RainfallQuery",

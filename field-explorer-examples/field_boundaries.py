@@ -11,6 +11,10 @@ import json
 API_KEY = os.environ.get("API_KEY") or exit('API_KEY environment variable required')
 BASE_URL = "https://api.agrimetrics.co.uk/field-boundaries"
 
+# Please note, these examples require an Agrimetrics subscription with premium credits.
+# Running these examples for the first time will consume 6 premium credits,
+# subsequent runs will not consume any more credits.
+
 
 def main():
     get_all_field_boundaries_for_shape()
@@ -19,11 +23,11 @@ def main():
 
 
 def get_all_field_boundaries_for_shape():
-    shape = "POLYGON((-1.2905502319335938 51.57365561973001,-1.1772537231445312 51.57365561973001,-1.1772537231445312 51.64785047402897,-1.2905502319335938  51.64785047402897,-1.2905502319335938 51.57365561973001))"
+    shape = "POLYGON((-0.35791397094726557 51.80370566913594,-0.3737926483154297 51.81853742720025,-0.38396358489990234 51.8139477982038,-0.3879976272583008 51.802246108975304,-0.36383628845214844 51.79999033214456,-0.35791397094726557 51.80370566913594))"
 
     url = f"{BASE_URL}?geometry={urllib.parse.quote(shape)}&op=within&subscription-key={API_KEY}"
     print(f"\nBoundaries by shape URL (first page): {url}")
-    
+
     all_results = fetch_all_results(url)
 
     print(f"Total results retrieved: {len(all_results)}")
@@ -34,7 +38,7 @@ def get_all_field_boundaries_for_shape():
 
 
 def get_all_field_boundaries_within_radius_as_geojson_feature_collection():
-    point  = (-0.98569, 53.71002) # (lon, lat)
+    point  = (-0.363389293, 51.801963734) # (lon, lat)
     radius = 200 # meters
     url = f"{BASE_URL}?lon={point[0]}&lat={point[1]}&distance={radius}&subscription-key={API_KEY}"
     print(f"\nBoundaries within radius URL: {url}")
@@ -49,7 +53,7 @@ def get_all_field_boundaries_within_radius_as_geojson_feature_collection():
 
 
 def get_field_boundary_by_field_id_as_geojson_feature():
-    field_id = "-55EBjH38vntQwbOIAaFxw"
+    field_id = "C6BgTxUxhMG_OCGrLGW8qw"
     url = f"{BASE_URL}/{field_id}?subscription-key={API_KEY}"
     print(f"\nBoundary by field id URL: {url}")
 
@@ -59,7 +63,7 @@ def get_field_boundary_by_field_id_as_geojson_feature():
 
 
 # get all pages of results.
-# We know that we have got all results when receive a page 
+# We know that we have got all results when receive a page
 # which has fewer than pageSize results.
 def fetch_all_results(url, pageSize=100):
     pageNum = 1
@@ -67,7 +71,7 @@ def fetch_all_results(url, pageSize=100):
     while True:
         pageUrl = f"{url}&pageSize={pageSize}&pageNum={pageNum}"
         print(f"\tPage {pageNum} URL: {pageUrl}")
-        
+
         response = get_data(url=pageUrl)
 
         page_of_results = response['results']
@@ -82,7 +86,7 @@ def fetch_all_results(url, pageSize=100):
     return all_results
 
 # get all pages of GeoJSON FeatureCollection results.
-# We know that we have got all results when receive a page 
+# We know that we have got all results when receive a page
 # which has fewer than pageSize features.
 def fetch_all_results_as_geojson(url, pageSize=100):
     pageNum = 1
@@ -90,7 +94,7 @@ def fetch_all_results_as_geojson(url, pageSize=100):
     while True:
         pageUrl = f"{url}&pageSize={pageSize}&pageNum={pageNum}"
         print(f"\tPage {pageNum} URL: {pageUrl}")
-        
+
         response = get_data(url=pageUrl, geojson=True)
 
         page_of_features = response['features']
@@ -113,7 +117,7 @@ def get_data(url, geojson=False):
     headers = {}
     if geojson:
         headers["accept"] = "application/geo+json"
-    
+
     response = requests.get(url=url, headers=headers)
     response.raise_for_status()
     return response.json()

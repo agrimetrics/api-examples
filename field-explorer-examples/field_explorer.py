@@ -13,8 +13,8 @@ API_KEY = os.environ.get("API_KEY") or exit('API_KEY environment variable requir
 
 def main():
     coordinates = {
-        "lat": 52.245590965,
-        "lon": 0.089372501,
+        "lat": 51.801963734,
+        "lon": -0.363389293,
     }
 
     field_response = find_field(coordinates)
@@ -56,7 +56,7 @@ def process_field_forecasts_temperature(field_finder_response):
     daily_forecast_maximum_temperature = convert_dateTime_columns_to_datetime(daily_forecast_maximum_temperature)
 
     plot_timeseries(daily_forecast_maximum_temperature, title='Daily Maximum Temperature')
-    
+
     print('\nDaily Maximum Temperature')
     print(daily_forecast_maximum_temperature.to_string(index=False))
 
@@ -65,7 +65,7 @@ def process_field_facts_soil(field_finder_response):
     # Soil layers
     field_facts_url = get_api_url(field_finder_response, 'field-facts')
     print(f"\nField Facts URL: {field_facts_url}")
-    
+
     facts_result = get_data(field_facts_url)
 
     soil_layers = json_to_dataframe(facts_result['hasSoilLayer'])

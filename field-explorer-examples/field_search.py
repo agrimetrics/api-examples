@@ -13,8 +13,8 @@ API_KEY = os.environ.get("API_KEY") or exit('API_KEY environment variable requir
 
 BASE_URL = 'https://api.agrimetrics.co.uk/field-search?'
 
-SEARCH_SHAPE_POLYGON = """geo.intersects(Location, geography'SRID=0;MultiLineString((-0.165482 51.992382,-0.175095 51.981492,-0.192947 51.974936,-0.189171 51.963196,-0.195866 51.950078,-0.167198 51.959388,-0.133553 51.941824,-0.096645 51.954627,-0.086002 51.966793,-0.102654 51.981704,-0.126858 51.992276,-0.165482 51.992382))'"""
-SEARCH_SHAPE_CIRCLE = """geo.distance(Field/centroid,geography'SRID=0;Point(-0.138702 51.963196)') lt 3500"""
+SEARCH_SHAPE_POLYGON = """geo.intersects(Location, geography'SRID=0;MultiLineString((-0.35791397094726557 51.80370566913594,-0.3737926483154297 51.81853742720025,-0.38396358489990234 51.8139477982038,-0.3879976272583008 51.802246108975304,-0.36383628845214844 51.79999033214456,-0.35791397094726557 51.80370566913594))'"""
+SEARCH_SHAPE_CIRCLE = """geo.distance(Field/centroid,geography'SRID=0;Point(-0.363389293 51.801963734)') lt 3500"""
 
 SEARCH_FILTER_PROPERTIES = """(Field/hasSownCrop/any(c: c/harvestYear eq 2018 and c/label eq 'Wheat'))"""
 SEARCH_SELECT_PROPERTIES = [
@@ -29,12 +29,12 @@ SEARCH_SELECT_PROPERTIES = [
 def main():
     search_url = generate_search_query(shape=SEARCH_SHAPE_CIRCLE, filter=SEARCH_FILTER_PROPERTIES, select=SEARCH_SELECT_PROPERTIES)
     print(f'Field Search URL: {search_url}\n')
-    
+
     search_results = get_data(search_url)
     print(f"Found {search_results['totalResults']} fields.")
-    
+
     first_10 = search_results['results'][:10]
-    
+
     process_rainfall_data(first_10)
     process_soil_data(first_10)
 
@@ -92,8 +92,8 @@ def process_soil_data(data):
     df = pandas.DataFrame(top_soil_data['hasSoilTexture.hasSoilTextureType'].value_counts())
 
     plot_pie_chart(
-        data=df['hasSoilTexture.hasSoilTextureType'], 
-        labels=[soil_url_to_name(url) for url in df.index], 
+        data=df['hasSoilTexture.hasSoilTextureType'],
+        labels=[soil_url_to_name(url) for url in df.index],
         title='Fields by top soil type'
     )
 
@@ -131,7 +131,7 @@ def generate_search_query(shape, filter, select):
     encoded_select = urllib.parse.quote(select_query)
 
     params = f"$filter={encoded_filter}&$select={encoded_select}"
-    
+
     return f"{BASE_URL}{params}&subscription-key={API_KEY}"
 
 
