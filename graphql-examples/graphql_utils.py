@@ -2,6 +2,10 @@ import os
 import requests
 
 
+if __name__ == "__main__":
+    print("This file is a library for use by the other examples. Run on its own, it will do nothing,")
+
+
 API_KEY = os.environ.get("API_KEY") or exit('API_KEY environment variable required')
 BASE_URL = "https://api.agrimetrics.co.uk/graphql"
 

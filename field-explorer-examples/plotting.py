@@ -6,6 +6,10 @@ import pandas
 import matplotlib.pyplot as plt
 
 
+if __name__ == "__main__":
+    print("This file is a library for use by the other examples. Run on its own, it will do nothing,")
+
+
 def plot_stacked_bar_chart(data, x, y, labels, title="Stacked bar chart"):
     fig = plt.figure()
     ax = plt.subplot(111)

@@ -1,0 +1,7 @@
+jupyter
+pandas
+requests
+matplotlib
+ipywidgets
+swb
+eto

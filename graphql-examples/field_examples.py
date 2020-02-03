@@ -62,7 +62,7 @@ def query_soil_by_polygon():
     """
     query = {
         "query": """query SoilPolygonQuery($location: LocationFilter!) {
-            fields(filter: {location: $location}
+            fields(geoFilter: {location: $location}
             ) {
                 id
                 area {
@@ -95,7 +95,7 @@ def query_soil_by_point():
     """
     query = {
         "query": """query SoilPointQuery($location: LocationFilter!) {
-            fields(filter: {location: $location distance: 3500}) {
+            fields(geoFilter: {location: $location, distance: {LE: 3500}}) {
                 id
                 soil {
                     topSoil {
@@ -119,8 +119,8 @@ def get_field_by_id():
     Get the area, elevation and soil information for a specific field
     """
     query = {
-        "query": """query MyQuery1($fieldId: ID!) {
-            fields(filter: {id: $fieldId}) {
+            "query": """query MyQuery1($fieldId: [ID!]!) {
+            fields(where: {id: {EQ: $fieldId}}) {
                 id
                 area {
                   value
@@ -150,10 +150,10 @@ def query_daily_rainfall_for_field_for_current_month():
     For a given field id, get all the total daily rainfall since the start of the month.
     """
     query = {
-        "query": """query RainfallQuery($fieldId: ID!, $startDate: Date!) {
-            fields(filter: {id: $fieldId}) {
+        "query": """query RainfallQuery($fieldId: [ID!]!, $startDate: Date!) {
+            fields(where: {id: {EQ: $fieldId}}) {
                 id
-                weatherObservations(dateRange: {startDate: $startDate}) {
+                weatherObservations(where: {date: {GE: $startDate}}) {
                     rainfallTotalDaily {
                         value
                     }
@@ -190,7 +190,7 @@ def query_ids_for_large_area():
     """
     query = {
         "query": """query LargeSearchArea($location: LocationFilter!, $cursor: String) {
-            fields(filter: {location: $location distance: 10000}, after: $cursor) {
+            fields(geoFilter: {location: $location, distance: {LE: 10000}}, after: $cursor) {
                 id
                 cursor
             }
@@ -214,7 +214,7 @@ def query_historic_rainfall_for_fields():
     """
     query = {
         "query": """query SampleFields($location: LocationFilter!) {
-            fields(filter: {location: $location distance: 1000}) {
+            fields(geoFilter: {location: $location, distance: {LE: 1000}}) {
                 id
             }
         }""",
@@ -251,7 +251,7 @@ def get_rainfall_for_field(id, start_date):
         "query": """query FieldRainfall($id: ID!, $startDate: Date!, $cursor: String) {
             node(id: $id) {
                 ... on Field {
-                    weatherObservations(dateRange: {startDate: $startDate}, after: $cursor) {
+                    weatherObservations(where: {date: {GE: $startDate}}, after: $cursor) {
                         cursor
                         rainfallTotalDaily {
                             value
