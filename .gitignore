@@ -28,3 +28,4 @@ venv.bak/
 .vscode/
 *~
 .ipynb_checkpoints
+verde-examples/output/
