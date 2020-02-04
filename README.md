@@ -10,7 +10,7 @@ To obtain your subscription key:
 * Sign-up to Agrimetrics via either the [Developer Portal](https://developer.agrimetrics.co.uk) or the [Field Explorer Demo](https://app.agrimetrics.co.uk).
 * Subscribe to Field Explorer by pressing 'Subscribe' in the [Field Explorer Product page](https://developer.agrimetrics.co.uk/products/field-explorer)
 
-To setup your python environment, install the dependencies via:
+To setup your python environment, install the dependencies using the `requirements.txt` file found in each subdirectory:
 
 ```bash
 $ pip install -r requirements.txt
