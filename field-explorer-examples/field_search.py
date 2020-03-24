@@ -118,7 +118,10 @@ def soil_url_to_name(url):
 
 
 def get_data(url):
-    response = requests.get(url=url)
+    headers = {
+      'Ocp-Apim-Subscription-Key': API_KEY
+    }
+    response = requests.get(url=url, headers=headers)
     response.raise_for_status()
     return response.json()
 
@@ -132,7 +135,7 @@ def generate_search_query(shape, filter, select):
 
     params = f"$filter={encoded_filter}&$select={encoded_select}"
 
-    return f"{BASE_URL}{params}&subscription-key={API_KEY}"
+    return f"{BASE_URL}{params}"
 
 
 def json_to_dataframe(data):

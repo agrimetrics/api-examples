@@ -25,7 +25,7 @@ def main():
 def get_all_field_boundaries_for_shape():
     shape = "POLYGON((-0.35791397094726557 51.80370566913594,-0.3737926483154297 51.81853742720025,-0.38396358489990234 51.8139477982038,-0.3879976272583008 51.802246108975304,-0.36383628845214844 51.79999033214456,-0.35791397094726557 51.80370566913594))"
 
-    url = f"{BASE_URL}?geometry={urllib.parse.quote(shape)}&op=within&subscription-key={API_KEY}"
+    url = f"{BASE_URL}?geometry={urllib.parse.quote(shape)}&op=within"
     print(f"\nBoundaries by shape URL (first page): {url}")
 
     all_results = fetch_all_results(url)
@@ -40,7 +40,7 @@ def get_all_field_boundaries_for_shape():
 def get_all_field_boundaries_within_radius_as_geojson_feature_collection():
     point  = (-0.363389293, 51.801963734) # (lon, lat)
     radius = 200 # meters
-    url = f"{BASE_URL}?lon={point[0]}&lat={point[1]}&distance={radius}&subscription-key={API_KEY}"
+    url = f"{BASE_URL}?lon={point[0]}&lat={point[1]}&distance={radius}"
     print(f"\nBoundaries within radius URL: {url}")
 
     feature_collection = fetch_all_results_as_geojson(url)
@@ -54,7 +54,7 @@ def get_all_field_boundaries_within_radius_as_geojson_feature_collection():
 
 def get_field_boundary_by_field_id_as_geojson_feature():
     field_id = "C6BgTxUxhMG_OCGrLGW8qw"
-    url = f"{BASE_URL}/{field_id}?subscription-key={API_KEY}"
+    url = f"{BASE_URL}/{field_id}"
     print(f"\nBoundary by field id URL: {url}")
 
     response = get_data(url=url, geojson=True)
@@ -114,7 +114,9 @@ def fetch_all_results_as_geojson(url, pageSize=100):
 
 
 def get_data(url, geojson=False):
-    headers = {}
+    headers = {
+      'Ocp-Apim-Subscription-Key': API_KEY
+    }
     if geojson:
         headers["accept"] = "application/geo+json"
 

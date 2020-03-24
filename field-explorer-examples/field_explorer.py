@@ -88,18 +88,21 @@ def process_field_facts_soil(field_finder_response):
 
 
 def get_data(url):
-    response = requests.get(url=url)
+    headers = {
+      'Ocp-Apim-Subscription-Key': API_KEY
+    }
+    response = requests.get(url=url, headers=headers)
     response.raise_for_status()
     return response.json()
 
 
 def find_field(coordinates):
-    url = f"https://api.agrimetrics.co.uk/field-finder?lat={coordinates['lat']}&lon={coordinates['lon']}&subscription-key={API_KEY}"
+    url = f"https://api.agrimetrics.co.uk/field-finder?lat={coordinates['lat']}&lon={coordinates['lon']}"
     return get_data(url)
 
 
 def get_api_url(field_response, field_api):
-    return f"{field_response['_links'][f'ag:api:{field_api}']['href']}?subscription-key={API_KEY}"
+    return f"{field_response['_links'][f'ag:api:{field_api}']['href']}"
 
 
 def json_to_dataframe(data):
