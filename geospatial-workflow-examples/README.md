@@ -1,12 +1,12 @@
-# GraphQL API Geospatial Workflow Examples (written in R)
+# Example geospatial data workflows in R following data query through the Agrimetrics GraphQL API
 
-This directory contains examples of accessing the Agrimetrics GraphQL API to obtain geospatial data to do further geospatial operations such as
+This directory contains examples of various geospatial data workflows after initially querying the Agrimetrics GraphQL API to obtain geospatial data. It illustratates
 
-1. Saving the outputs to common geospatial file formats such as shapefiles
-2. Aligning geospatial data from multiple sources to enable their analysis
-3. Working with geospatial and temporal data (e.g. weather time series) together
-4. Analysing the queried geospatial data together
-5. Leveraging various helper functions to make the analyses simpler and less prone to coding error
+1. Saving the outputs to common geospatial file formats such as shapefiles for usage in other software (e.g. ArcGIS/QGIS).
+2. Aligning geospatial data from multiple sources to enable their analysis.
+3. Working with geospatial and temporal data (e.g. weather time series) together.
+4. Analysing the queried geospatial data together in a spatial analysis.
+5. Leveraging various helper functions to make the analyses simpler and less prone to coding error.
 
 The examples are executed in the R programming language within Jupyter notebooks. 
 
