@@ -8,13 +8,13 @@ This directory contains examples of various geospatial data workflows after init
 4. Analysing the queried geospatial data together in a spatial analysis.
 5. Leveraging various helper functions to make the analyses simpler and less prone to coding error.
 
-The examples are executed in the R programming language within Jupyter notebooks. 
+The examples are executed in the R programming language within Jupyter notebooks.
 
 ## Notebook Tutorials
 
-* [Geospatial_analysis_demo.ipynb](Geospatial_analysis_demo.ipynb]) &mdash; Spatial interpolation of point data using Inverse Distance Weighting (IDW).
-* [Rothamsted_static_geospatial_query_demo.ipynb](Rothamsted_static_geospatial_query_demo.ipynb]) &mdash; Retrieving static geospatial data from a Gra
-* [Rothamsted_timeseries_geospatial_query_demo.ipynb](Rothamsted_timeseries_geospatial_query_demo.ipynb]) &mdash; Retrieving time series geospatial data from a GraphQL query.
+* [Geospatial_analysis_demo.ipynb](./Geospatial_analysis_demo.ipynb) &mdash; Spatial interpolation of point data using Inverse Distance Weighting (IDW).
+* [Rothamsted_static_geospatial_query_demo.ipynb](./Rothamsted_static_geospatial_query_demo.ipynb) &mdash; Retrieving static geospatial data from a Gra
+* [Rothamsted_timeseries_geospatial_query_demo.ipynb](./Rothamsted_timeseries_geospatial_query_demo.ipynb) &mdash; Retrieving time series geospatial data from a GraphQL query.
 
 ## Jupyter Lab
 
