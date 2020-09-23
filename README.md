@@ -24,7 +24,7 @@ $ pipenv install
 
 # Example directories
 
-This repository has three main directories of examples and tutorials.
+This repository has four main directories of examples and tutorials.
 
 ## Field Explorer Examples
 
@@ -34,10 +34,14 @@ fields.
 
 ## GraphQL Examples
 
-[Examples and tutorials](./graphql-examples/README.md) of how to use Agrimetrics' GraphQL API. This 
+[Examples and tutorials](./graphql-examples/README.md) of how to use Agrimetrics' GraphQL API. This
 API provides access to all of our queryable data, including premium
 data such as field boundaries and satellite observations of fields
 (*Verde* data -- see below).
+
+## SAR Examples
+
+A notebook demonstrating how to train a crop growth model to SAR data.
 
 ## Verde Examples
 
