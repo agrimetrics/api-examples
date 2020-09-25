@@ -34,19 +34,10 @@ USER ruser
 
 # For your convenience, all the required libraries for each of the included notebooks have been installed here as part of the build.
 # Their inclusion in the build reduces the time of running the notebooks but increases the build time.
-# For clarity the full list per notebook have been included, so there will be duplicates which inturn increases the build time.
 
 RUN R -e "install.packages(c(\
   'ggplot2', 'gstat', 'httr', 'jsonlite', 'lubridate', 'raster', 'rgdal', 'sp', 'tidyverse', \
   'stringr', 'dplyr', 'geojsonsf', 'sf', 'tmap', 'ghql', 'logging', 'MASS' \
   ))"
-
-USER root
-
-RUN chmod a+rwx -R $HOME
-
-FROM pre-production as production
-
-USER ruser
 
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
