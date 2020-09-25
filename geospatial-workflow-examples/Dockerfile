@@ -29,23 +29,24 @@ ENV HOME=/home/ruser
 RUN R -e "install.packages('IRkernel')"
 RUN R -e "IRkernel::installspec(user=FALSE)"
 
-FROM base as production
+FROM base as pre-production
 USER ruser
 
 # For your convenience, all the required libraries for each of the included notebooks have been installed here as part of the build.
-# Their inclusion in the build reduces the time of running the notebooks. For clarity the full list per notebook have been included, so there will be duplicates.
+# Their inclusion in the build reduces the time of running the notebooks but increases the build time.
+# For clarity the full list per notebook have been included, so there will be duplicates which inturn increases the build time.
 
-# packages needed for Geospatial_analysis_demo
-RUN R -e "install.packages(c('gstat', 'httr', 'jsonlite', 'lubridate', 'raster', 'rgdal', 'sp','tidyverse'))"
+RUN R -e "install.packages(c(\
+  'ggplot2', 'gstat', 'httr', 'jsonlite', 'lubridate', 'raster', 'rgdal', 'sp', 'tidyverse', \
+  'stringr', 'dplyr', 'geojsonsf', 'sf', 'tmap', 'ghql', 'logging', 'MASS' \
+  ))"
 
-# packages needed for Rothamsted_static_geospatial_query_demo
-RUN R -e "install.packages(c('httr', 'jsonlite', 'lubridate', 'rgdal', 'sp', 'tidyverse'))"
+USER root
 
-# packages needed for Rothamsted_timeseries_geospatial_query_demo
-RUN R -e "install.packages(c('ggplot2', 'httr', 'jsonlite', 'lubridate', 'rgdal', 'sf', 'sp', 'tidyverse'))"
+RUN chmod a+rwx -R $HOME
 
-# packages needed for Rothamsted_geospatialMeasures_demo_using_utility_functions
-RUN R -e "install.packages(c('stringr', 'dplyr', 'jsonlite', 'geojsonsf', 'sf', 'tmap', 'ggplot2', 'ghql', 'logging', 'MASS'))"
+FROM pre-production as production
 
+USER ruser
 
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
