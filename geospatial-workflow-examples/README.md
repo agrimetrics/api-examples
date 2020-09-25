@@ -1,6 +1,6 @@
 # Example geospatial data workflows in R following data query through the Agrimetrics GraphQL API
 
-This directory contains examples of various geospatial data workflows after initially querying the Agrimetrics GraphQL API to obtain geospatial data. It illustratates
+This directory contains examples of various geospatial data workflows after initially querying the Agrimetrics GraphQL API to obtain geospatial data. It illustrates
 
 1. Saving the outputs to common geospatial file formats such as shapefiles for usage in other software (e.g. ArcGIS/QGIS).
 2. Aligning geospatial data from multiple sources to enable their analysis.
@@ -13,7 +13,7 @@ The examples are executed in the R programming language within Jupyter notebooks
 ## Notebook Tutorials
 
 * [Rothamsted_static_geospatial_query_demo.ipynb](./Rothamsted_static_geospatial_query_demo.ipynb) &mdash; Retrieving static geospatial data over our GraphQL API, putting into a dataframe and outputting as a shape file.
-* [Rothamsted_timeseries_geospatial_query_demo.ipynb](./Rothamsted_timeseries_geospatial_query_demo.ipynb) &mdash; Retrieving spatial and time series data together over our GraphQL API, conducting analyses adn outputting as a shape file.
+* [Rothamsted_timeseries_geospatial_query_demo.ipynb](./Rothamsted_timeseries_geospatial_query_demo.ipynb) &mdash; Retrieving spatial and time series data together over our GraphQL API, conducting analyses and outputting as a shape file.
 * [Rothamsted_geospatialMeasures_demo_using_utility_functions.ipynb](./othamsted_geospatialMeasures_demo_using_utility_functions.ipynb)  &mdash; Retrieving spatial and time series geospatial data from a GraphQL query and conducting analysis using various helper functions to reduce the coding burden!
 * [Geospatial_analysis_demo.ipynb](./Geospatial_analysis_demo.ipynb) &mdash; Example analysis of spatial interpolation of point data using Inverse Distance Weighting (IDW) on top of data downloaded from our GraphQL API.
 
