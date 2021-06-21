@@ -1,0 +1,15 @@
+{
+  "load_extensions": {
+    "jupyter-js-widgets/extension": true
+  },
+  "MarkdownCell": {
+    "cm_config": {
+      "lineWrapping": true
+    }
+  },
+  "CodeCell": {
+    "cm_config": {
+      "lineWrapping": true
+    }
+  }
+}

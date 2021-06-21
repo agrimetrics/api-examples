@@ -29,6 +29,9 @@ ENV HOME=/home/ruser
 RUN R -e "install.packages('IRkernel')"
 RUN R -e "IRkernel::installspec(user=FALSE)"
 
+# copy config so that code cells wrap ensuring all code is available in printed versions 
+COPY notebook.json /etc/jupyter/nbconfig/notebook.json
+
 FROM base as pre-production
 USER ruser
 
