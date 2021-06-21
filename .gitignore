@@ -29,3 +29,4 @@ venv.bak/
 *~
 .ipynb_checkpoints
 verde-examples/output/
+**/.local/*
