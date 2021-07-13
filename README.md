@@ -39,6 +39,10 @@ $ jupyter notebook
 
 This repository has four main directories of examples and tutorials.
 
+## CropLens AI Examples
+[Notebook](./croplens-ai-examples/croplens_ai.ipynb) demonstrating how to use Agrimetrics GraphQL API
+to obtain crop predictions.
+
 ## Field Explorer Examples
 
 [Examples](./field-explorer-examples/README.md) of how to use Python to access Agrimetrics' REST APIs. These
