@@ -68,7 +68,7 @@ A notebook demonstrating how to train a crop growth model to SAR data.
 ## Verde Examples
 
 Examples and tutorials of how to use Agrimetrics' GraphQL API to
-access [Airbus Crop Analytics](https://app.agrimetrics.co.uk/#/catalog/data-sets/fdebcd1d-9324-401d-b229-fbd21483e584) data. This is our premium data set containing crop measurements derived from satellite observations of the UK.
+access [Airbus Crop Analytics](https://app.agrimetrics.co.uk/#/catalog/data-sets/fdebcd1d-9324-401d-b229-fbd21483e584) data (previously known as Verde). This is our premium data set containing crop measurements derived from satellite observations of the UK.
 
 # Further Reading
 
