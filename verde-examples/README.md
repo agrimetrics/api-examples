@@ -1,14 +1,15 @@
-# Verde Field Attributes Examples
+# Airbus Crop Analytics Examples
 
-This repository contains Jupyter notebook examples of obtaining [Verde
-Field Attributes
+This repository contains Jupyter notebook examples of obtaining [Airbus Crop Analytics
 data](https://app.agrimetrics.co.uk/#/catalog/data-sets/fdebcd1d-9324-401d-b229-fbd21483e584)
 over our [GraphQL
 API](https://developer.agrimetrics.co.uk/docs/services/graphql/operations/status).
 
+**NOTE: Airbus Crop Analytics was previously known as Verde. We have changed the word "Verde" to "Crop Analytics" in this document.**
+
 The notebooks are
-* `walkthrough.ipynb`: An end to end walkthrough for how to request and obtain Verde data.
-* `verde-fetch.ipynb`: Creating time series for each of the Verde field attributes for a specific field.
+* `walkthrough.ipynb`: An end to end walkthrough for how to request and obtain Airbus Crop Analytics data.
+* `verde-fetch.ipynb`: Creating time series for each of the Airbus Crop Analytics field attributes for a specific field.
 * `lodging.ipynb`: Developing crop lodging predictions: a use-case inspired example.
 * `evapotranspiration.ipynb`: Estimating soil water balance: a use-case inspired example.
 * `benchmark.ipynb`: Benchmarking field attributes: a use-case inspired example.
